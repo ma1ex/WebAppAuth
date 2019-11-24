@@ -1,0 +1,27 @@
+# IDE
+.idea
+.vscode
+.jshintrc
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Builds
+/build
+/dist
+
+# Misc
+.DS_Store
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Developer environment
+/vendor/*
+!/vendor/ma1ex
+/node_modules
+composer.phar

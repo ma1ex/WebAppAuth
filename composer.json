@@ -1,0 +1,25 @@
+{
+    "name": "ma1ex/app_web_auth",
+    "description": "WEB application for registration and authorization",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ma1ex",
+            "email": "matvienko.alexey@gmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=7.1.0",
+        "roave/security-advisories": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "ma1ex\\": "vendor/ma1ex/src/",
+            "app\\": "app/"
+        }
+    }
+}
