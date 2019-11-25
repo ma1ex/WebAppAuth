@@ -76,7 +76,10 @@ class Db {
      * Db constructor.
      * @param string $filePath
      */
-    public function __construct(string $filePath) {
+    public function __construct(string $filePath = '') {
+    //public function __construct(string $filePath) {
+
+        $filePath = !empty($filePath) ? $filePath : DB_XML;
 
         $this->dir = realpath(dirname($filePath)) . DIRECTORY_SEPARATOR;
         $file = basename($filePath, '.xml');

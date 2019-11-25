@@ -1,9 +1,9 @@
-<h1><?php echo $page_caption ?></h1>
+<div class="container">
 
-<ul style="list-style: none; font-size: 1.5rem;">
-    <?php foreach($menu as $link => $name): ?>
-        <li style="display: inline; margin-right: 5px;">
-            <a href="<?php echo $link ?>"><?php echo $name ?></a>
-        </li>
-    <?php endforeach; ?>
-</ul>
+    <div class="row">
+        <div class="col-7">
+            <h1><?php echo $page_caption ?></h1>
+        </div>
+    </div>
+
+</div>

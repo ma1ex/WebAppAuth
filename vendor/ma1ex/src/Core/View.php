@@ -5,7 +5,7 @@
  * File: View.php;
  * Developer: Matvienko Alexey (matvienko.alexey@gmail.com);
  * Date & Time: 24.11.2019, 22:48
- * Comment:
+ * Comment: View base class
  */
 
 
@@ -36,16 +36,19 @@ class View {
     protected $layout = APP_TPL_LAYOUTS_PATH . 'default.php';
 
     /**
-     * Name or path to template file
+     * Array templates
      *
-     * @var string
+     * @var array
      */
-    protected $view = APP_TPL_PATH . 'index.php';
+    protected $view = [];
 
     public function __construct(array $routeParams = []) {
         // Init base params
         $this->setParams($routeParams);
-        $this->add(['headers' => '']);
+        $this->add([
+            'headers' => '',
+            'footers' => ''
+        ]);
     }
 
     /**
@@ -67,21 +70,27 @@ class View {
     }
 
     /**
-     * Set template
+     * Set templates
      *
-     * @param string $view
+     * @param array $view
      */
-    public function setView(string $view): void {
-        $this->view = APP_TPL_PATH . $view . '.php';
+    public function setView(array $view): void {
+        if (is_array($view)) {
+            $this->view = array_merge($this->view, $view);
+        }
     }
 
     /**
-     * Return path to view
+     * Return path for view by name
      *
+     * @param string $name
      * @return string
      */
-    public function getView(): string {
-        return $this->view;
+    public function getView(string $name): string {
+        if (array_key_exists($name, $this->view)) {
+            return $this->view[$name];
+        }
+        return '';
     }
 
     /**
@@ -92,6 +101,32 @@ class View {
      */
     public function addHeader(string $incResource, string $type = 'js'): void {
         static $resource = '';
+        $resource .= $this->addResource($incResource, $type);
+        $this->add(['headers' => $resource]);
+    }
+
+    /**
+     * Add footer includes: css, javascript
+     *
+     * @param string $incResource
+     * @param string $type
+     */
+    public function addFooter(string $incResource, string $type = 'js'): void {
+        static $resource = '';
+        $resource .= $this->addResource($incResource, $type);
+        $this->add(['footers' => $resource]);
+    }
+
+    /**
+     * Return HTML string by type name
+     *
+     * @param string $incResource
+     * @param string $type
+     * @return string
+     */
+    protected function addResource(string $incResource, string $type): string {
+        $resource = '';
+
         switch ($type) {
             case 'css':
                 $resource .= '<link rel="stylesheet" href="' . $incResource . '">' . "\r\n";
@@ -103,7 +138,7 @@ class View {
                 $resource .= $incResource . "\r\n";
         }
 
-        $this->add(['headers' => $resource]);
+        return $resource;
     }
 
     /**
@@ -154,11 +189,14 @@ class View {
         extract($this->getVars());
         /* Подключение файла шаблона, загрузка его в буфер и присвоение переменной
            $content для дальнейшего вывода в файле layout`а */
-        if (file_exists($this->getView())) {
-            require $this->getView();
-        } else {
-            trigger_error('Template "' . $this->getView() . '" not found!', E_USER_ERROR);
+        foreach($this->view as $view => $path) {
+            if (file_exists($file = APP_TPL_PATH . $path . '.php')) {
+                require $file;
+            } else {
+                trigger_error('Template "' . $file . '" not found!', E_USER_ERROR);
+            }
         }
+
         $content = ob_get_clean();
         /* Подключение файла layout`а и передача в него всех переменных для вывода
            контента */

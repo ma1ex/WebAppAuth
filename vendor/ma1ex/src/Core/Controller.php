@@ -43,20 +43,6 @@ abstract class Controller {
     }
 
     /**
-     * Чтобы жестко не привязывать модель к контроллеру,
-     * этот метод позволяет загружать любую модель по требованию
-     *
-     * @param string $modelName
-     * @return null
-     */
-    public function getModel(string $modelName) {
-        if (class_exists($modelName)) {
-            return new $modelName(new Db());
-        }
-        return null;
-    }
-
-    /**
      * Загрузка модели по умолчанию в зависимости от имени контроллера,
      * в котором был вызван этот метод. Например, если имя контроллера
      * MainController, загрузится модель Main, у которой пространство имен

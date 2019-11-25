@@ -1,1 +1,10 @@
 /* Styles */
+.has-danger {
+    padding: 5px;
+    border: dashed 3px red;
+}
+
+.text-red, .form-control-register {
+    font-weight: bold;
+    color: red;
+}

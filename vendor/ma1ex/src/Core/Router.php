@@ -64,6 +64,13 @@ class Router {
     public static function buildMenu(): array {
         $menu = [];
         foreach(self::getAllRoutes() as $url => $linkName) {
+            // Если ключ 'name' пусто или его вообще нету (т.е. скрываем из меню$this->view->setView([
+            //            'menu' => 'chanks' . DS . 'menu',
+            //            'auth' => 'auth' . DS . $this->params['action']
+            //        ]);)
+            if (!isset($linkName['name']) || empty($linkName['name'])) {
+                continue;
+            }
             $url = APP_HTTP_PATH . $url;
             $menu[$url] = $linkName['name'];
         }

@@ -33,17 +33,23 @@ return [
         'name' => 'About'
     ],
 
-    'account/register' => [
-        'controller' => 'account',
+    'auth/register' => [
+        'controller' => 'auth',
         'action' => 'register',
         'namespace' => 'app\Controllers\Auth',
         'name' => 'Register'
     ],
 
-    'account/login' => [
-        'controller' => 'account',
+    'auth/login' => [
+        'controller' => 'auth',
         'action' => 'login',
         'namespace' => 'app\Controllers\Auth',
         'name' => 'Login'
+    ],
+
+    'auth/add' => [
+        'controller' => 'auth',
+        'action' => 'add',
+        'namespace' => 'app\Controllers\Auth'
     ],
 ];

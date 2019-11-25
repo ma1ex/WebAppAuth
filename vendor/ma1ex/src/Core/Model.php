@@ -20,10 +20,13 @@ abstract class Model {
     protected $db;
 
     /**
+     * Injection DataBase Driver
+     *
      * Model constructor.
-     * @param Db $db : Injection DataBase Driver
+     * @param Db $db
      */
-    public function __construct(Db $db) {
-        $this->db = $db;
+    public function __construct(Db $db = null) {
+        $this->db = !is_null($db) ?: new Db();
+        //$this->db = $db;
     }
 }

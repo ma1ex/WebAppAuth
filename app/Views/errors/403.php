@@ -13,9 +13,13 @@
             box-sizing: border-box;
         }
 
+        body {
+            background: gray;
+        }
+
         .wrapper {
             width: 98vw;
-            height: 95vh;
+            height: 98vh;
             margin: 0 auto;
             border: solid 8px red;
             background: gray;
@@ -24,7 +28,7 @@
         .wrapper h1, .wrapper h2 {
             text-align: center;
             color: lightgray;
-            text-shadow: 2px 2px 3px #000;
+            text-shadow: 2px 2px 3px red;
         }
 
         .wrapper h1 {

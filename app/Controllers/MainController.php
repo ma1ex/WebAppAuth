@@ -22,18 +22,16 @@ class MainController extends Controller {
         parent::__construct($params);
 
         // Имя контейнера шаблонов (layout).
-        // Можно не указывать, тогда будет использоваться по умолчанию - 'default'
+        // Если не указать, будет использоваться по умолчанию - 'default'
         //$this->view->setLayout('default');
 
-        /* Инициализация модели
-         * Если основная рабочая модель для этого контроллера именем схожа с именем
-         * этого контроллера, то достаточно вызвать метод loadModel().
-         * Или $this->model = $this->getModel(), если нужна сторонняя модель
-         */
-        //$this->model = $this->getModel('app\Models\\' . $this->params['controller']);
+        // Инициализация модели для этого контроллера
         //$this->loadModel();
 
         // Построение главного меню
+        $this->view->setView([
+            'menu' => 'chanks' . DS . 'menu'
+        ]);
         $this->view->add([
             'menu' => Router::buildMenu()
         ]);
@@ -41,8 +39,9 @@ class MainController extends Controller {
 
     public function indexAction() {
         // Имя подключаемого шаблона
-        // Для метода index можно не указывать, т.к. по умолчанию - 'index'
-        //$this->view->setView($this->params['action']);
+        $this->view->setView([
+            'main' => $this->params['action']
+        ]);
 
         // Перечень пеменных для выводав шаблоне
         $this->view->addHeader('css/style.css', 'css');
@@ -56,7 +55,9 @@ class MainController extends Controller {
     }
 
     public function aboutAction() {
-        $this->view->setView($this->params['action']);
+        $this->view->setView([
+            'main' => $this->params['action']
+        ]);
         $this->view->addHeader('css/style.css', 'css');
         $this->view->add([
             'page_title' => 'Об этом сайте',
