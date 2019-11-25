@@ -11,10 +11,17 @@
 
 namespace app\Controllers;
 
+use app\Models\User;
 use ma1ex\Core\Controller;
+use ma1ex\Core\Db;
 use ma1ex\Core\Router;
 
 class MainController extends Controller {
+
+    /**
+     * @var User
+     */
+    private $user;
 
     // Параметры при вызове контроллера передаются из роутера
     public function __construct(array $params) {
@@ -27,6 +34,7 @@ class MainController extends Controller {
 
         // Инициализация модели для этого контроллера
         //$this->loadModel();
+        $this->user = new User();
 
         // Построение главного меню
         $this->view->setView([
@@ -38,6 +46,17 @@ class MainController extends Controller {
     }
 
     public function indexAction() {
+        $users = [];
+        $all = $this->user->getAllWithoutPass();
+        for ($i = 0; $i < sizeof($all); $i++) {
+            $users[] = [
+                'id' => $all[$i]->id,
+                'login' => $all[$i]->login,
+                'email' => $all[$i]->email,
+                'name' => $all[$i]->name
+            ];
+        }
+
         // Имя подключаемого шаблона
         $this->view->setView([
             'main' => $this->params['action']
@@ -48,10 +67,10 @@ class MainController extends Controller {
         $this->view->addHeader('js/app.js');
         $this->view->add([
             'page_title' => 'Главная страница',
-            'page_caption' => 'Hello, World! <br> I`m a Main page! <br><br>'
+            'page_caption' => 'Hello, World! <br> I`m a Main page! <br><br>',
+            'users' => $users
         ]);
         $this->view->render();
-
     }
 
     public function aboutAction() {

@@ -225,6 +225,34 @@ class Db {
     }
 
     /**
+     * @param string $table
+     * @return bool
+     */
+    public function existTable(string $table): bool {
+        $rows = $this->xml->xpath('//database/' . $table);
+
+        if (!empty($rows)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $table
+     * @return bool
+     */
+    public function emptyTable(string $table): bool {
+        $rows = $this->xml->xpath('//database/' . $table . '/row[position()=1]');
+
+        if (empty($rows)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @param $table
      * @return $this
      */

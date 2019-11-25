@@ -113,11 +113,14 @@ class AuthController extends Controller {
     private function isEmailAlreadyExists(string $email): bool {
         $emails = $this->user->getAllEmails();
 
-        for ($i = 0; $i < sizeof($emails); $i++) {
-            if ($emails[$i]->email === $email) {
-                return true;
+        if (!empty($emails)) {
+            for ($i = 0; $i < sizeof($emails); $i++) {
+                if ($emails[$i]->email === $email) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 
@@ -128,11 +131,14 @@ class AuthController extends Controller {
     private function isLoginAlreadyExists(string $login): bool {
         $logins = $this->user->getAllLogins();
 
-        for ($i = 0; $i < sizeof($logins); $i++) {
-            if ($logins[$i]->login === $login) {
-                return true;
+        if (!empty($logins)) {
+            for ($i = 0; $i < sizeof($logins); $i++) {
+                if ($logins[$i]->login === $login) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 
@@ -160,6 +166,8 @@ class AuthController extends Controller {
             ]);
             exit();
         }
+
+        Router::errorCode(403);
     }
 
     public function loginAction() {

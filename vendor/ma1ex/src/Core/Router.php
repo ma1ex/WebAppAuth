@@ -126,6 +126,9 @@ class Router {
      */
     public static function errorCode(int $code, string $pathTemplate = '') {
         http_response_code($code);
+        if (empty($pathTemplate) && defined('APP_TPL_ERRORS_PATH')) {
+            $pathTemplate = APP_TPL_ERRORS_PATH;
+        }
         $template = $pathTemplate . $code . '.php';
         if (file_exists($template)) {
             require_once $template;
