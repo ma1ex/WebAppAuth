@@ -27,6 +27,5 @@ abstract class Model {
      */
     public function __construct(Db $db = null) {
         $this->db = !is_null($db) ?: new Db();
-        //$this->db = $db;
     }
 }

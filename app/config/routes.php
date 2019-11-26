@@ -12,7 +12,8 @@
  * @example ['controller' => 'controllerName',
  *          'action       => 'actionName',
  *          'namespace'   => 'App\Name\Space',
- *          'name'        => 'this_route_name']
+ *          'name'        => 'this_route_name for build menu',
+ *          'visible'      => 'visible link']
  */
 return [
     '' => [ // URL
@@ -44,12 +45,27 @@ return [
         'controller' => 'auth',
         'action' => 'login',
         'namespace' => 'app\Controllers\Auth',
-        'name' => 'Login'
+        'name' => 'Login',
+        'visible' => 'unautorize'
     ],
 
     'auth/add' => [
         'controller' => 'auth',
         'action' => 'add',
         'namespace' => 'app\Controllers\Auth'
+    ],
+
+    'auth/signin' => [
+        'controller' => 'auth',
+        'action' => 'signin',
+        'namespace' => 'app\Controllers\Auth'
+    ],
+
+    'auth/logout' => [
+        'controller' => 'auth',
+        'action' => 'logout',
+        'namespace' => 'app\Controllers\Auth',
+        'name' => 'Logout',
+        'visible' => 'autorize'
     ],
 ];

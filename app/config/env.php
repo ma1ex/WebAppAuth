@@ -5,7 +5,7 @@
  * File: env.php;
  * Developer: Matvienko Alexey (matvienko.alexey@gmail.com);
  * Date & Time: 24.11.2019, 22:39
- * Comment:
+ * Comment: Environment config
  */
 
 // Application directory names

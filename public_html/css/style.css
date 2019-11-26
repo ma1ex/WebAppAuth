@@ -1,10 +1,17 @@
 /* Styles */
+
+.page-caption {
+    text-align: center;
+}
+
 .has-danger {
     padding: 5px;
     border: dashed 3px red;
 }
 
-.text-red, .form-control-register {
+.text-red,
+.form-control-register,
+.form-control-signin {
     font-weight: bold;
     color: red;
 }

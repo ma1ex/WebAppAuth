@@ -6,4 +6,10 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-12">
+            <p><?php echo $page_text ?></p>
+        </div>
+    </div>
+
 </div>

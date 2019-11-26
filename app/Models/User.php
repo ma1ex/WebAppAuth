@@ -5,7 +5,7 @@
  * File: User.php;
  * Developer: Matvienko Alexey (matvienko.alexey@gmail.com);
  * Date & Time: 25.11.2019, 0:30
- * Comment: Model User
+ * Comment: User Model
  */
 
 
@@ -16,6 +16,8 @@ use ma1ex\Core\Model;
 class User extends Model {
 
     /**
+     * Table name
+     *
      * @var string
      */
     private $table = 'users';
@@ -38,7 +40,8 @@ class User extends Model {
                 'login' => $login,
                 'password' => password_hash($password, PASSWORD_DEFAULT),
                 'email' => $email,
-                'name' => $name
+                'name' => $name,
+                'token' => $token
             ]);
     }
 
@@ -69,7 +72,7 @@ class User extends Model {
     }
 
     /**
-     * Get all records
+     * Get all users
      *
      * @return array|bool|mixed
      */
@@ -92,6 +95,42 @@ class User extends Model {
             ->from($this->table)
             ->select('id, login, email, name')
             ->all();
+    }
+
+    /**
+     * Get one user by condition
+     *
+     * @param string $column
+     * @param string $condition
+     * @return array|bool|mixed
+     */
+    public function getUser(string $column, string $condition) {
+        $this->db->cache = false;
+
+        if ($this->db->emptyTable($this->table)) {
+            return [];
+        }
+
+        return $this->db
+            ->from($this->table)
+            ->select()
+            ->where($column, $condition)
+            ->first();
+    }
+
+    /**
+     * Set authorization token
+     *
+     * @param string $userLogin
+     * @param string $token
+     * @return mixed
+     */
+    public function setToken(string $userLogin, string $token) {
+        return $this->db
+            ->from($this->table)
+            ->where('login', $userLogin)
+            ->limit(1)
+            ->update(['token' => $token]);
     }
 
     /**

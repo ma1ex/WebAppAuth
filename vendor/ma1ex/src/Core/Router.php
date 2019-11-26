@@ -54,24 +54,25 @@ class Router {
      * @return mixed : Build the main menu based on the routes
      *
      * Формирование главного меню.
-     * Почему именно в этом классе? Т.к. роуты загружаются из внешнего массива
-     * (файла), а не строятся динамически на основе разбора $_SERVER['REQUEST_URI'],
-     * и их анализом и построением путей занимается именно этот класс, то логичнее
-     * всего (как по мне) именно здесь формировать ссылки на все страницы, как,
-     * собственно, и в этом же классе делать карту сайта/приложения.
      *
      */
     public static function buildMenu(): array {
         $menu = [];
         foreach(self::getAllRoutes() as $url => $linkName) {
-            // Если ключ 'name' пусто или его вообще нету (т.е. скрываем из меню$this->view->setView([
-            //            'menu' => 'chanks' . DS . 'menu',
-            //            'auth' => 'auth' . DS . $this->params['action']
-            //        ]);)
+            // Проверка на наличие соответствующего ключа в конфиге
             if (!isset($linkName['name']) || empty($linkName['name'])) {
                 continue;
             }
             $url = APP_HTTP_PATH . $url;
+            // Видимость ссылок для залогиненых
+            if ((isset($linkName['visible']) && $linkName['visible'] === 'autorize')
+                    && (!isset($_SESSION['user']) && !isset($_COOKIE['auth_local_autorize']) )) {
+                continue;
+            }
+            if ((isset($linkName['visible']) && $linkName['visible'] === 'unautorize')
+                && (isset($_SESSION['user']) && isset($_COOKIE['auth_local_autorize']) )) {
+                continue;
+            }
             $menu[$url] = $linkName['name'];
         }
         return $menu;

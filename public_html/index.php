@@ -5,7 +5,7 @@
  * File: index.php;
  * Developer: Matvienko Alexey (matvienko.alexey@gmail.com);
  * Date & Time: 22.11.2019, 18:22
- * Comment: Fron Controller
+ * Comment: Front Controller
  */
 
 use ma1ex\Core\Router;

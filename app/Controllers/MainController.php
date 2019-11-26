@@ -5,7 +5,7 @@
  * File: MainController.php;
  * Developer: Matvienko Alexey (matvienko.alexey@gmail.com);
  * Date & Time: 24.11.2019, 22:54
- * Comment:
+ * Comment: Default controller
  */
 
 
@@ -13,7 +13,6 @@ namespace app\Controllers;
 
 use app\Models\User;
 use ma1ex\Core\Controller;
-use ma1ex\Core\Db;
 use ma1ex\Core\Router;
 
 class MainController extends Controller {
@@ -22,6 +21,8 @@ class MainController extends Controller {
      * @var User
      */
     private $user;
+
+    private $loggedUser = 'Guest';
 
     // Параметры при вызове контроллера передаются из роутера
     public function __construct(array $params) {
@@ -45,16 +46,24 @@ class MainController extends Controller {
         ]);
     }
 
+    /**
+     * Start page
+     */
     public function indexAction() {
+
         $users = [];
-        $all = $this->user->getAllWithoutPass();
-        for ($i = 0; $i < sizeof($all); $i++) {
+        $allUsers = $this->user->getAllWithoutPass();
+        for ($i = 0; $i < sizeof($allUsers); $i++) {
             $users[] = [
-                'id' => $all[$i]->id,
-                'login' => $all[$i]->login,
-                'email' => $all[$i]->email,
-                'name' => $all[$i]->name
+                'id' => $allUsers[$i]->id,
+                'login' => $allUsers[$i]->login,
+                'email' => $allUsers[$i]->email,
+                'name' => $allUsers[$i]->name
             ];
+        }
+
+        if (isset($_SESSION['user']) && isset($_COOKIE['auth_local_autorize'])) {
+            $this->loggedUser = (string) array_key_first($_SESSION['user']);
         }
 
         // Имя подключаемого шаблона
@@ -67,20 +76,33 @@ class MainController extends Controller {
         $this->view->addHeader('js/app.js');
         $this->view->add([
             'page_title' => 'Главная страница',
-            'page_caption' => 'Hello, World! <br> I`m a Main page! <br><br>',
-            'users' => $users
+            'page_caption' => 'This Main page',
+            'users' => $users,
+            'logged_user' => $this->loggedUser
         ]);
         $this->view->render();
     }
 
+    /**
+     * Test page - About
+     */
     public function aboutAction() {
+        $text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
+        do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+        qui officia deserunt mollit anim id est laborum.';
+
         $this->view->setView([
             'main' => $this->params['action']
         ]);
         $this->view->addHeader('css/style.css', 'css');
         $this->view->add([
-            'page_title' => 'Об этом сайте',
-            'page_caption' => 'Страница "About"'
+            'page_title' => 'Тестовая страница',
+            'page_caption' => 'Страница "About"',
+            'page_text' => $text
         ]);
         $this->view->render();
     }

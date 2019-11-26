@@ -8,16 +8,16 @@
 
     <div class="row justify-content-center">
         <div class="col-8">
-            <form id="registration">
+            <form id="signin" method="post">
                 <div class="form-group">
-                    <label for="name">Имя</label>
-                    <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" placeholder="Введите имя">
-                    <div class="form-control-feedback"></div>
+                    <label for="login">Логин</label>
+                    <input type="text" class="form-control" id="login" name="login" aria-describedby="emailHelp" placeholder="Введите логин">
+                    <div class="form-control-signin"></div>
                 </div>
                 <div class="form-group">
                     <label for="password">Пароль</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Пароль">
-                    <div class="form-control-feedback"></div>
+                    <div class="form-control-signin"></div>
                 </div>
                 <button type="submit" class="btn btn-primary">Войти</button>
             </form>

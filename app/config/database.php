@@ -5,7 +5,7 @@
  * File: database.php;
  * Developer: Matvienko Alexey (matvienko.alexey@gmail.com);
  * Date & Time: 25.11.2019, 0:56
- * Comment:
+ * Comment: DB config
  */
 
 if (!defined('DB_XML')) {
