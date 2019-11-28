@@ -25,5 +25,15 @@
 <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
 <?php echo $footers ?>
 
+<!--<div>
+    <?php
+        echo '<pre>';
+        print_r($_SESSION);
+        print_r($_COOKIE);
+        echo '</pre>';
+    ?>
+</div>-->
+
+
 </body>
 </html>

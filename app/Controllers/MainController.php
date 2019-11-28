@@ -22,6 +22,9 @@ class MainController extends Controller {
      */
     private $user;
 
+    /**
+     * @var string
+     */
     private $loggedUser = 'Guest';
 
     // Параметры при вызове контроллера передаются из роутера
@@ -73,7 +76,7 @@ class MainController extends Controller {
 
         // Перечень пеменных для выводав шаблоне
         $this->view->addHeader('css/style.css', 'css');
-        $this->view->addHeader('js/app.js');
+        //$this->view->addHeader('js/app.js');
         $this->view->add([
             'page_title' => 'Главная страница',
             'page_caption' => 'This Main page',

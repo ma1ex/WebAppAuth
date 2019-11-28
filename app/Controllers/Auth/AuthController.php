@@ -41,7 +41,6 @@ class AuthController extends Controller {
     public function registerAction() {
 
         $this->view->addHeader(APP_HTTP_PATH . 'css/style.css', 'css');
-        $this->view->addHeader(APP_HTTP_PATH . 'js/app.js');
         $this->view->addFooter(APP_HTTP_PATH . 'js/form.js');
 
         // Полный путь до подключаемого шаблона и перечень пеменных для вывода
